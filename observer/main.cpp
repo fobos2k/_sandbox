@@ -7,11 +7,16 @@
 int main()
 {
     try {
-        std::unique_ptr<mqtt_client> client(new mqtt_client("OBSERVER_TEST"));
+        std::unique_ptr<mqtt_client> client;
+        std::cout << "PTR: " << client.get() << std::endl;
+
+        client.reset(new mqtt_client("OBSERVER_TEST"));
+        std::cout << "PTR: " << client.get() << std::endl;
+
         std::unique_ptr<OnvifExecutor> executor(new OnvifExecutor(* client));
 
         std::string msg = "bla-bla-bla";
-        
+
         std::cout << "Saying: " << msg << " -> ";
         client->say_something(msg);
 
